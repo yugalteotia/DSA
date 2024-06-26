@@ -206,7 +206,7 @@ public class LinkedList {
         tail = temp;
     }
 
-    private boolean isListEmpty() {
+    public boolean isListEmpty() {
         return size == 0 || head == null || tail == null;
     }
 
