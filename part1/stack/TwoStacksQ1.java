@@ -5,44 +5,33 @@ public class TwoStacksQ1 {
     private int[] stack;
     private int size;
     private int top1 = -1;
-    private int top2 = -1;
+    private int top2;
 
     public TwoStacksQ1(int size) {
         this.size = size;
+        top2 = size;
         stack = new int[size];
     }
 
     public void push1(int data) {
 
-        if (isFull()) {
-            resize();
-        }
+        if (isFull())
+            throw new StackOverflowError("The stack is already full, can not add more elements!!!");
 
-        if (top2 > top1) {
-            top1 = top2;
-            stack[++top1] = data;
-        } else {
-            stack[++top1] = data;
-        }
+        stack[++top1] = data;
     }
 
     public void push2(int data) {
 
-        if (isFull()) {
-            resize();
-        }
+        if (isFull())
+            throw new StackOverflowError("The stack is already full, can not add more elements!!!");
 
-        if (top1 > top2) {
-            top2 = top1;
-            stack[++top2] = data;
-        } else {
-            stack[++top2] = data;
-        }
+        stack[--top2] = data;
     }
 
-    public int pop() {
+    public int pop1() {
 
-        if (isEmpty())
+        if (isEmpty1())
             throw new EmptyStackException();
 
         int result = stack[top1];
@@ -50,16 +39,34 @@ public class TwoStacksQ1 {
         return result;
     }
 
-    public int peek() {
+    public int pop2() {
+
+        if (isEmpty2())
+            throw new EmptyStackException();
+
+        int result = stack[top2];
+        stack[top2++] = 0;
+        return result;
+    }
+
+    public int peek1() {
         return stack[top1];
     }
 
-    public boolean isEmpty() {
-        return top1 == -1;
+    public int peek2() {
+        return stack[top2];
+    }
+
+    public boolean isEmpty1() {
+        return top1 <= -1;
+    }
+
+    private boolean isEmpty2() {
+        return top2 >= size;
     }
 
     public boolean isFull() {
-        return top1 == size - 1 || top2 == size - 1;
+        return top1 >= top2;
     }
 
     private void resize() {
@@ -72,7 +79,11 @@ public class TwoStacksQ1 {
 
     @Override
     public String toString() {
-        return "Stack [stack=" + Arrays.toString(stack) + ", size=" + size + ", top=" + top1 + "]";
+        var stack1 = Arrays.copyOfRange(stack, 0, top1 + 1);
+        var stack2 = Arrays.copyOfRange(stack, top2, size);
+        return "TwoStacks [stack1=" + Arrays.toString(stack1) + ", top1=" + top1 + ", " + "stack2="
+                + Arrays.toString(stack2) + ", top2=" + top2
+                + ", Totalsize=" + size + "]";
     }
 
 }
