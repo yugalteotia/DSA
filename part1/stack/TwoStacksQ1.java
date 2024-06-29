@@ -1,3 +1,5 @@
+package part1.stack;
+
 import java.util.Arrays;
 import java.util.EmptyStackException;
 
@@ -61,7 +63,7 @@ public class TwoStacksQ1 {
         return top1 <= -1;
     }
 
-    private boolean isEmpty2() {
+    public boolean isEmpty2() {
         return top2 >= size;
     }
 
@@ -69,13 +71,13 @@ public class TwoStacksQ1 {
         return top1 >= top2;
     }
 
-    private void resize() {
-        this.size *= 2;
-        int[] newStack = new int[size];
-        for (int i = 0; i < stack.length; i++)
-            newStack[i] = stack[i];
-        stack = newStack;
-    }
+    // private void resize() {
+    // this.size *= 2;
+    // int[] newStack = new int[size];
+    // for (int i = 0; i < stack.length; i++)
+    // newStack[i] = stack[i];
+    // stack = newStack;
+    // }
 
     @Override
     public String toString() {

@@ -1,6 +1,6 @@
 package part1.linked_list;
 
-class Node {
+public class Node {
 
     private Node next;
     private int data = 0;
