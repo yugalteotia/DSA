@@ -1,6 +1,5 @@
 package part1.queue;
 
-import java.util.ArrayDeque;
 import java.util.Queue;
 import java.util.Stack;
 
@@ -21,20 +20,18 @@ public class QueueReverserQ1 {
 
     public static void reverse(Queue<Integer> queue, int k) {
 
-        Queue<Integer> result = new ArrayDeque<Integer>();
+        int toBeReverse = k;
 
-        while (k-- != 0)
+        while (toBeReverse-- != 0)
             stack.push(queue.remove());
 
         while (!stack.isEmpty())
-            result.add(stack.pop());
+            queue.add(stack.pop());
 
-        while (!queue.isEmpty()) {
-            result.add(queue.remove());
+        int notToBeReverse = queue.size() - k;
+
+        while (notToBeReverse-- != 0) {
+            queue.add(queue.remove());
         }
-
-        queue = result;
-        System.out.println(queue);
     }
-
 }
