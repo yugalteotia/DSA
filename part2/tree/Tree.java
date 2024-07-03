@@ -66,4 +66,79 @@ public class Tree {
         return false;
     }
 
+    public void traversePreOrder() {
+        traversePreOrder(root);
+    }
+
+    private void traversePreOrder(Node root) {
+
+        if (root == null)
+            return;
+
+        System.out.println(root.data);
+        traversePreOrder(root.leftChild);
+        traversePreOrder(root.rightChild);
+    }
+
+    public void traverseInOrder() {
+        traverseInOrder(root);
+    }
+
+    private void traverseInOrder(Node root) {
+
+        if (root == null)
+            return;
+
+        traverseInOrder(root.leftChild);
+        System.out.println(root.data);
+        traverseInOrder(root.rightChild);
+    }
+
+    public void traversePostOrder() {
+        traversePostOrder(root);
+    }
+
+    private void traversePostOrder(Node root) {
+
+        if (root == null)
+            return;
+
+        traversePostOrder(root.leftChild);
+        traversePostOrder(root.rightChild);
+        System.out.println(root.data);
+    }
+
+    public int height() {
+        return height(root);
+    }
+
+    private int height(Node root) {
+
+        if (root == null)
+            return -1;
+
+        if (isLeafNode(root))
+            return 0;
+
+        return 1 + Math.max(height(root.leftChild), height(root.rightChild));
+    }
+
+    public int min() {
+        return min(root);
+    }
+
+    private int min(Node root) {
+
+        if (isLeafNode(root))
+            return root.data;
+
+        var leftMin = min(root.leftChild);
+        var rightMin = min(root.rightChild);
+
+        return Math.min(Math.min(leftMin, rightMin), root.data);
+    }
+
+    private boolean isLeafNode(Node root) {
+        return root.leftChild == null && root.rightChild == null;
+    }
 }
