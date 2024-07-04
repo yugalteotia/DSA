@@ -3,7 +3,7 @@ package part2.tree;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Tree {
+public class TreeAndQ1toQ6 {
 
     private class Node {
 
@@ -169,7 +169,7 @@ public class Tree {
         return root.leftChild == null && root.rightChild == null;
     }
 
-    public boolean equals(Tree other) {
+    public boolean equals(TreeAndQ1toQ6 other) {
 
         return other != null ? areNodesEqual(this.root, other.root) : false;
     }
@@ -239,5 +239,104 @@ public class Tree {
         for (int i = 0; i <= height(); i++)
             for (var nodeData : getNodesAtDistance(i))
                 System.out.println(nodeData);
+    }
+
+    public int getSizeQ1() {
+        return getSizeQ1(root);
+    }
+
+    private int getSizeQ1(Node root) {
+
+        if (root == null)
+            return 0;
+
+        return 1 + getSizeQ1(root.leftChild) + getSizeQ1(root.rightChild);
+    }
+
+    public int countLeavesQ2() {
+        return countLeavesQ2(root);
+    }
+
+    private int countLeavesQ2(Node root) {
+
+        if (root == null) {
+            return 0;
+        }
+        if (root.leftChild == null && root.rightChild == null) {
+            return 1;
+        }
+        return countLeavesQ2(root.leftChild) + countLeavesQ2(root.rightChild);
+    }
+
+    public int maxQ3() {
+        return maxQ3(root);
+    }
+
+    private int maxQ3(Node root) {
+
+        if (root == null)
+            return Integer.MIN_VALUE;
+
+        if (isLeafNode(root)) {
+            return root.data;
+        }
+
+        return Math.max(Math.max(maxQ3(root.leftChild), maxQ3(root.rightChild)), root.data);
+    }
+
+    public boolean containsQ4(int inpData) {
+
+        return containsQ4(root, inpData);
+    }
+
+    private boolean containsQ4(Node root, int inpData) {
+
+        if (root == null)
+            return false;
+
+        if (root.data == inpData)
+            return true;
+
+        return containsQ4(root.leftChild, inpData) || containsQ4(root.rightChild, inpData);
+    }
+
+    public boolean areSiblingsQ5(int leftData, int rightData) {
+        return areSiblingsQ5(root, leftData, rightData);
+    }
+
+    private boolean areSiblingsQ5(Node root, int leftData, int rightData) {
+
+        if (root == null || isLeafNode(root) || root.leftChild == null || root.rightChild == null)
+            return false;
+
+        if ((root.leftChild.data == leftData && root.rightChild.data == rightData)
+                || (root.rightChild.data == leftData && root.leftChild.data == rightData)) {
+            return true;
+        }
+
+        return areSiblingsQ5(root.leftChild, leftData, rightData)
+                || areSiblingsQ5(root.rightChild, leftData, rightData);
+    }
+
+    public List<Integer> getAncestorsQ6(int data) {
+        List<Integer> ancestorsList = new ArrayList<>();
+        getAncestorsQ6(root, data, ancestorsList);
+        return ancestorsList;
+    }
+
+    private void getAncestorsQ6(Node root, int data, List<Integer> list) {
+
+        // 6- Implement a method to return the ancestors of a value in a List<Integer>.
+
+        if (root == null) {
+            return;
+        }
+
+        if (root.data != data) {
+            getAncestorsQ6(root.leftChild, data, list);
+            getAncestorsQ6(root.rightChild, data, list);
+        } else
+            list.add(root.data);
+
     }
 }

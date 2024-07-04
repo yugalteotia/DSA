@@ -1,9 +1,9 @@
-import part2.tree.Tree;
+import part2.tree.TreeAndQ1toQ6;
 
 public class Main {
     public static void main(String[] args) {
 
-        Tree myTree = new Tree();
+        TreeAndQ1toQ6 myTree = new TreeAndQ1toQ6();
         myTree.insert(7);
         myTree.insert(4);
         myTree.insert(9);
@@ -11,10 +11,9 @@ public class Main {
         myTree.insert(6);
         myTree.insert(8);
         myTree.insert(10);
-        System.out.println(myTree.getNodesAtDistance(0));
-        System.out.println(myTree.getNodesAtDistance(1));
-        System.out.println(myTree.getNodesAtDistance(2));
 
-        myTree.levelOrderTraversel();
+        // myTree.swapRoot();
+
+        System.out.println(myTree.areSiblingsQ5(4, 8));
     }
 }
