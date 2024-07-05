@@ -318,25 +318,25 @@ public class TreeAndQ1toQ6 {
                 || areSiblingsQ5(root.rightChild, leftData, rightData);
     }
 
-    public List<Integer> getAncestorsQ6(int data) {
+    public List<Integer> getAncestorsQ6(int target) {
         List<Integer> ancestorsList = new ArrayList<>();
-        getAncestorsQ6(root, data, ancestorsList);
+        getAncestorsQ6(root, target, ancestorsList);
         return ancestorsList;
     }
 
-    private void getAncestorsQ6(Node root, int data, List<Integer> list) {
+    private boolean getAncestorsQ6(Node root, int target, List<Integer> list) {
 
-        // 6- Implement a method to return the ancestors of a value in a List<Integer>.
+        if (root == null)
+            return false;
 
-        if (root == null) {
-            return;
+        if (root.data == target)
+            return true;
+
+        if (getAncestorsQ6(root.leftChild, target, list) || getAncestorsQ6(root.rightChild, target, list)) {
+            list.add(root.data);
+            return true;
         }
 
-        if (root.data != data) {
-            getAncestorsQ6(root.leftChild, data, list);
-            getAncestorsQ6(root.rightChild, data, list);
-        } else
-            list.add(root.data);
-
+        return false;
     }
 }
